@@ -41,7 +41,7 @@ do
             depend_job_id=${job_id_list[${depend_idx}]}
             dependency+="afterany:${depend_job_id}"
 
-            #echo "${job_id} depends on ${depend_job_id} finishing."
+            echo "${job_id} depends on ${depend_job_id} finishing."
         fi
 
     fi
@@ -54,15 +54,15 @@ do
             prev_job_id=${job_id_list[${prev_idx}]}
             dependency+="after:${prev_job_id}"
 
-            #echo "${job_id} depends on ${prev_job_id} starting."
+            echo "${job_id} depends on ${prev_job_id} starting."
         fi
     fi
 
 
-    dependency_option=''
-    if [[ -n ${dependency} ]]; then
-        dependency_option="Dependency=${dependency}"
-    fi
+    dependency_option="Dependency=${dependency}"
+    #if [[ -n ${dependency} ]]; then
+    #    dependency_option="Dependency=${dependency}"
+    #fi
 
     scontrol update jobid=${job_id} ${dependency_option}
     :
