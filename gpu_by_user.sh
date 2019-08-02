@@ -54,7 +54,7 @@ done
 if [[ ${partition} == "dell" ]]; then
     total_gpus=112
 elif [[ ${partition} == "sugon" ]]; then
-    total_gpus=40
+    total_gpus=34
 else
     die "unsupported partition (${partition})"
 fi

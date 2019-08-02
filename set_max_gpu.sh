@@ -19,6 +19,7 @@ job_id_list=($(cat $(grep "JOB IDs FILE IN:" ${batch_outputs_logfile} | grep -oP
 # so until job 1 finishes, no new jobs will be run
 
 cat $(grep "JOB IDs FILE IN:" ${batch_outputs_logfile} | grep -oP "\S+$") > all_jobs.txt
+#echo "number of jobs: ${#job_id_list[@]}"
 for (( idx=0; idx<${#job_id_list[@]}; idx++ ));
 do
 {
@@ -41,7 +42,10 @@ do
             depend_job_id=${job_id_list[${depend_idx}]}
             dependency+="afterany:${depend_job_id}"
 
-            echo "${job_id} depends on ${depend_job_id} finishing."
+            #echo "${job_id} depends on ${depend_job_id} finishing."
+        else
+            #echo "${job_id} waits for no one."
+            :
         fi
 
     fi
@@ -54,7 +58,7 @@ do
             prev_job_id=${job_id_list[${prev_idx}]}
             dependency+="after:${prev_job_id}"
 
-            echo "${job_id} depends on ${prev_job_id} starting."
+            #echo "${job_id} depends on ${prev_job_id} starting."
         fi
     fi
 
